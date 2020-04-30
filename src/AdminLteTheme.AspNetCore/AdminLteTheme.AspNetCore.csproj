@@ -6,6 +6,7 @@
     <WwwRootResourcesFolder>Resources</WwwRootResourcesFolder>
     <TemplateHtmlFolder>AdminLTE-3.0.4</TemplateHtmlFolder>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
     <!--<DefaultItemExcludes>$(DefaultItemExcludes);\**\README.md;</DefaultItemExcludes>-->
   </PropertyGroup>
 
@@ -19,43 +20,15 @@
     <Compile Remove="$(TemplateHtmlFolder)\**\*" />
     <None Remove="$(TemplateHtmlFolder)\**\*" />
 
-    <EmbeddedResource Include="$(TemplateHtmlFolder)\**\*" />
+    <EmbeddedResource Include="$(TemplateHtmlFolder)\**\*" Exclude="$(TemplateHtmlFolder)\node_modules\**;$(TemplateHtmlFolder)\docs\**;$(TemplateHtmlFolder)\build\**;$(TemplateHtmlFolder)\.github\**;$(TemplateHtmlFolder)\.babelrc;$(TemplateHtmlFolder)\.browserslistrc;$(TemplateHtmlFolder)\.editorconfig;$(TemplateHtmlFolder)\.eslintignore;$(TemplateHtmlFolder)\.eslintrc;$(TemplateHtmlFolder)\.gitignore;$(TemplateHtmlFolder)\.npmignore;$(TemplateHtmlFolder)\.travis.yml;$(TemplateHtmlFolder)\composer.json;$(TemplateHtmlFolder)\LICENSE;$(TemplateHtmlFolder)\package-lock.json;$(TemplateHtmlFolder)\package.json;$(TemplateHtmlFolder)\README.md" />
+
   </ItemGroup>
   
   <ItemGroup>
     <Content Remove="$(WwwRootResourcesFolder)\**\*" />
     <Compile Remove="$(WwwRootResourcesFolder)\**\*" />
     <None Remove="$(WwwRootResourcesFolder)\**\*" />
-
-    <EmbeddedResource Include="$(WwwRootResourcesFolder)\**\*" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.github\**" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\build\**" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\docs\**" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.babelrc" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.browserslistrc" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.editorconfig" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.eslintignore" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.eslintrc" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.gitignore" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.npmignore" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.travis.yml" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\composer.json" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\LICENSE" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\package-lock.json" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\package.json" />
-    <EmbeddedResource Remove="$(TemplateHtmlFolder)\README.md" />
-  </ItemGroup>
-
-  
-  
-  <ItemGroup>
-    <EmbeddedResource Include="$(TemplateHtmlFolder)\node_modules\jquery-validation\dist\**\*.js" />
+    <EmbeddedResource Include="$(WwwRootResourcesFolder)\plugins\**\*" Exclude="$(WwwRootResourcesFolder)\plugins\.bin\**" />
   </ItemGroup>
   
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
