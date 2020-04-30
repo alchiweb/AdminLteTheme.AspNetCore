@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <WwwRootResourcesFolder>Resources</WwwRootResourcesFolder>
+    <TemplateHtmlFolder>AdminLTE-3.0.4</TemplateHtmlFolder>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <!--<DefaultItemExcludes>$(DefaultItemExcludes);\**\README.md;</DefaultItemExcludes>-->
+  </PropertyGroup>
+
+  
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Remove="$(TemplateHtmlFolder)\**\*" />
+    <Compile Remove="$(TemplateHtmlFolder)\**\*" />
+    <None Remove="$(TemplateHtmlFolder)\**\*" />
+
+    <EmbeddedResource Include="$(TemplateHtmlFolder)\**\*" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Remove="$(WwwRootResourcesFolder)\**\*" />
+    <Compile Remove="$(WwwRootResourcesFolder)\**\*" />
+    <None Remove="$(WwwRootResourcesFolder)\**\*" />
+
+    <EmbeddedResource Include="$(WwwRootResourcesFolder)\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.github\**" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\build\**" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\docs\**" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.babelrc" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.browserslistrc" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.editorconfig" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.eslintignore" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.eslintrc" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.gitignore" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.npmignore" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\.travis.yml" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\composer.json" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\LICENSE" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\package-lock.json" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\package.json" />
+    <EmbeddedResource Remove="$(TemplateHtmlFolder)\README.md" />
+  </ItemGroup>
+
+  
+  
+  <ItemGroup>
+    <EmbeddedResource Include="$(TemplateHtmlFolder)\node_modules\jquery-validation\dist\**\*.js" />
+  </ItemGroup>
+  
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <!-- Copy the embedded resources from the template folder to the wwwroot folder -->
+    <Copy Condition="$([System.String]::Copy('%(EmbeddedResource.RelativeDir)').StartsWith('$(TemplateHtmlFolder)\'))" SourceFiles="$(ProjectDir)%(EmbeddedResource.RelativeDir)%(EmbeddedResource.Filename)%(EmbeddedResource.Extension)" DestinationFiles="$(ProjectDir)wwwroot\$([System.String]::Copy('%(EmbeddedResource.RelativeDir)').Substring($(TemplateHtmlFolder.Length)))%(EmbeddedResource.Filename)%(EmbeddedResource.Extension)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+    <!-- Copy the embedded resources from the wwwroot resources folder to the wwwroot folder -->
+    <Copy Condition="$([System.String]::Copy('%(EmbeddedResource.RelativeDir)').StartsWith('$(WwwRootResourcesFolder)\'))" SourceFiles="$(ProjectDir)%(EmbeddedResource.RelativeDir)%(EmbeddedResource.Filename)%(EmbeddedResource.Extension)" DestinationFiles="$(ProjectDir)wwwroot\$([System.String]::Copy('%(EmbeddedResource.RelativeDir)').Substring($(WwwRootResourcesFolder.Length)))%(EmbeddedResource.Filename)%(EmbeddedResource.Extension)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+  </Target>
+
+</Project>
