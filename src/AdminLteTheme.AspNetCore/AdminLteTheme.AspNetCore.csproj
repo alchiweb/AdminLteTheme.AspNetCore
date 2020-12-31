@@ -1,20 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <WwwRootResourcesFolder>Resources</WwwRootResourcesFolder>
-    <TemplateHtmlFolder>AdminLTE-3.0.4</TemplateHtmlFolder>
+    <TemplateHtmlFolder>AdminLTE-3.1.0-rc</TemplateHtmlFolder>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.4</Version>
     <!--<DefaultItemExcludes>$(DefaultItemExcludes);\**\README.md;</DefaultItemExcludes>-->
   </PropertyGroup>
 
-  
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Content Remove="$(TemplateHtmlFolder)\**\*" />
     <Compile Remove="$(TemplateHtmlFolder)\**\*" />
@@ -23,14 +22,14 @@
     <EmbeddedResource Include="$(TemplateHtmlFolder)\**\*" Exclude="$(TemplateHtmlFolder)\node_modules\**;$(TemplateHtmlFolder)\docs\**;$(TemplateHtmlFolder)\build\**;$(TemplateHtmlFolder)\.github\**;$(TemplateHtmlFolder)\.babelrc;$(TemplateHtmlFolder)\.browserslistrc;$(TemplateHtmlFolder)\.editorconfig;$(TemplateHtmlFolder)\.eslintignore;$(TemplateHtmlFolder)\.eslintrc;$(TemplateHtmlFolder)\.gitignore;$(TemplateHtmlFolder)\.npmignore;$(TemplateHtmlFolder)\.travis.yml;$(TemplateHtmlFolder)\composer.json;$(TemplateHtmlFolder)\LICENSE;$(TemplateHtmlFolder)\package-lock.json;$(TemplateHtmlFolder)\package.json;$(TemplateHtmlFolder)\README.md" />
 
   </ItemGroup>
-  
+
   <ItemGroup>
     <Content Remove="$(WwwRootResourcesFolder)\**\*" />
     <Compile Remove="$(WwwRootResourcesFolder)\**\*" />
     <None Remove="$(WwwRootResourcesFolder)\**\*" />
     <EmbeddedResource Include="$(WwwRootResourcesFolder)\plugins\**\*" Exclude="$(WwwRootResourcesFolder)\plugins\.bin\**" />
   </ItemGroup>
-  
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <!-- Copy the embedded resources from the template folder to the wwwroot folder -->
     <Copy Condition="$([System.String]::Copy('%(EmbeddedResource.RelativeDir)').StartsWith('$(TemplateHtmlFolder)\'))" SourceFiles="$(ProjectDir)%(EmbeddedResource.RelativeDir)%(EmbeddedResource.Filename)%(EmbeddedResource.Extension)" DestinationFiles="$(ProjectDir)wwwroot\$([System.String]::Copy('%(EmbeddedResource.RelativeDir)').Substring($(TemplateHtmlFolder.Length)))%(EmbeddedResource.Filename)%(EmbeddedResource.Extension)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
